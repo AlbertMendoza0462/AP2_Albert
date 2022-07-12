@@ -9,6 +9,7 @@ namespace AP2_Albert.Models
         [Required(ErrorMessage = "Digite la descripcion de la vitamina.")]
         public string Descripcion { get; set; }
         [Required(ErrorMessage = "Digite la unidad de medida de la vitamina.")]
-        public string UnidadDeMedida { get; set; }
+        public string UnidadMedida { get; set; }
+        public double Existencia { get; set; } = 0;
     }
 }

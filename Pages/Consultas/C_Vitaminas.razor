@@ -3,25 +3,42 @@
 
 <EditForm Model="this">
 	<div class="card">
-
 		<div class="card-header">
 			<h4>Consulta de Vitaminas</h4>
 		</div>
 	</div>
 	<div class="card-body">
-		<button class="btn btn-outline-primary"> <i class="oi oi-magnifying-glass" /> Buscar </button>
+		<button @onclick="buscar" class="btn btn-outline-primary"> <i class="oi oi-magnifying-glass" /> Buscar </button>
 	</div>
 
-	<table class="table table-striped table-hover mt-4" style="cursor: pointer;">
-
+	<table class="table table-striped table-hover mt-4">
 		<thead class="thead">
 			<tr class="table">
 				<th>VitaminaId</th>
 				<th>Descripcion</th>
 				<th>Unidad de medida</th>
+				<th>Existencia</th>
 			</tr>
 		</thead>
+		<tbody>
+			@foreach (var item in Vitaminas)
+			{
+				<tr>
+					<td>@item.VitaminaId</td>
+					<td>@item.Descripcion</td>
+					<td>@item.UnidadMedida</td>
+					<td>@item.Existencia</td>
+				</tr>
+			}
+		</tbody>
 	</table>
 </EditForm>
 @code {
+	public List<Vitaminas> Vitaminas { get; set; } = new List<Vitaminas>();
+
+	public void buscar()
+	{
+		List<Vitaminas>? lista = vitaminasBLL.GetList();
+		Vitaminas = (lista != null) ? lista : new List<Vitaminas>();
+	}
 }

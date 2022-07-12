@@ -26,6 +26,12 @@ namespace AP2_Albert.BLL
         {
             _context.Verduras.Add(verdura);
 
+            foreach (var item in verdura.Detalle)
+            {
+                Vitaminas vitamina = _context.Vitaminas.Find(item.VitaminaId);
+                vitamina.Existencia += item.Cantidad;
+            }
+
             bool paso = _context.SaveChanges() > 0;
 
             _context.Entry(verdura).State = EntityState.Detached;
@@ -35,6 +41,25 @@ namespace AP2_Albert.BLL
 
         public bool Modificar(Verduras verdura)
         {
+            var anterior = _context.Verduras
+               .Where(v => v.VerduraId == verdura.VerduraId)
+               .Include(v => v.Detalle)
+               .AsNoTracking()
+               .SingleOrDefault();
+
+            foreach (var item in anterior.Detalle)
+            {
+                var vitamina = _context.Vitaminas.Find(item.VitaminaId);
+                vitamina.Existencia -= item.Cantidad;
+            }
+            _context.Entry(anterior).State = EntityState.Detached;
+
+            foreach (var item in verdura.Detalle)
+            {
+                Vitaminas vitamina = _context.Vitaminas.Find(item.VitaminaId);
+                vitamina.Existencia += item.Cantidad;
+                _context.Entry(item).State = EntityState.Added;
+            }
 
             _context.Database.ExecuteSqlRaw($"DELETE FROM VerdurasDetalle WHERE VerduraId={verdura.VerduraId};");
 
@@ -51,7 +76,20 @@ namespace AP2_Albert.BLL
         {
             _context.Entry(verdura).State = EntityState.Deleted;
 
+            var anterior = _context.Verduras
+               .Where(c => c.VerduraId == verdura.VerduraId)
+               .Include(c => c.Detalle)
+               .AsNoTracking()
+               .SingleOrDefault();
+
+            foreach (var item in anterior.Detalle)
+            {
+                var vitamina = _context.Vitaminas.Find(item.VitaminaId);
+                vitamina.Existencia -= item.Cantidad;
+            }
+
             _context.Database.ExecuteSqlRaw($"DELETE FROM VerdurasDetalle WHERE VerduraId={verdura.VerduraId};");
+
 
             bool paso = _context.SaveChanges() > 0;
 
@@ -69,7 +107,7 @@ namespace AP2_Albert.BLL
                 .SingleOrDefault();
         }
 
-        public List<Verduras> GetListByDate(DateTime desde, DateTime hasta)
+        public List<Verduras>? GetListByDate(DateTime desde, DateTime hasta)
         {
             return _context.Verduras
                 .Where(c => desde.Date <= c.FechaCreacion.Date && hasta.Date >= c.FechaCreacion.Date)
@@ -77,7 +115,7 @@ namespace AP2_Albert.BLL
                 .ToList();
         }
 
-        public List<Verduras> GetList()
+        public List<Verduras>? GetList()
         {
             return _context.Verduras
                  .AsNoTracking()

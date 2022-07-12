@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AP2_Albert.Models
 {
@@ -12,5 +13,9 @@ namespace AP2_Albert.Models
         public int VitaminaId { get; set; }
         [Range(1, Double.MaxValue, ErrorMessage = "Digite la cantidad.")]
         public double Cantidad { get; set; }
+		[NotMapped]
+		public string DescripcionVitamina { get; set; }
+        [NotMapped]
+        public string UnidadMedidaVitamina { get; set; }
     }
 }

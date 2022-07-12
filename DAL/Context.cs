@@ -18,12 +18,28 @@ namespace AP2_Albert.DAL
               new Vitaminas() {
                   VitaminaId = 1,
                   Descripcion = "Vitamina A",
-                  UnidadDeMedida = "Miligramos"
+                  UnidadMedida = "Miligramos",
+                  Existencia = 0
               },
               new Vitaminas() {
                   VitaminaId = 2,
                   Descripcion = "Vitamina B",
-                  UnidadDeMedida = "Microgramos"
+                  UnidadMedida = "Microgramos",
+                  Existencia = 0
+              },
+              new Vitaminas()
+              {
+                  VitaminaId = 3,
+                  Descripcion = "Vitamina C",
+                  UnidadMedida = "Miligramos",
+                  Existencia = 0
+              },
+              new Vitaminas()
+              {
+                  VitaminaId = 4,
+                  Descripcion = "Vitamina D",
+                  UnidadMedida = "Microgramos",
+                  Existencia = 0
               }
             );
         }

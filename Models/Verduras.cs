@@ -9,7 +9,7 @@ namespace AP2_Albert.Models
         public int VerduraId { get; set; }
         [Required(ErrorMessage = "Digite la fecha.")]
         public string? Nombre { get; set; }
-        public DateTime FechaCreacion { get; set; }
+        public DateTime FechaCreacion { get; set; } = DateTime.Now;
         [Required(ErrorMessage = "Digite el nombre de la verdura.")]
         public string? Observaciones { get; set; }
         [ForeignKey("VerduraId"), Required(ErrorMessage = "Una verdura necesita vitaminas.")]

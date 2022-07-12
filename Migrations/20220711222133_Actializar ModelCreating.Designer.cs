@@ -3,6 +3,7 @@ using System;
 using AP2_Albert.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AP2_Albert.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220711222133_Actializar ModelCreating")]
+    partial class ActializarModelCreating
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.6");
@@ -71,8 +73,8 @@ namespace AP2_Albert.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Existencia")
-                        .HasColumnType("REAL");
+                    b.Property<int>("Existencia")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UnidadMedida")
                         .IsRequired()
@@ -87,28 +89,14 @@ namespace AP2_Albert.Migrations
                         {
                             VitaminaId = 1,
                             Descripcion = "Vitamina A",
-                            Existencia = 0.0,
+                            Existencia = 100,
                             UnidadMedida = "Miligramos"
                         },
                         new
                         {
                             VitaminaId = 2,
                             Descripcion = "Vitamina B",
-                            Existencia = 0.0,
-                            UnidadMedida = "Microgramos"
-                        },
-                        new
-                        {
-                            VitaminaId = 3,
-                            Descripcion = "Vitamina C",
-                            Existencia = 0.0,
-                            UnidadMedida = "Miligramos"
-                        },
-                        new
-                        {
-                            VitaminaId = 4,
-                            Descripcion = "Vitamina D",
-                            Existencia = 0.0,
+                            Existencia = 50,
                             UnidadMedida = "Microgramos"
                         });
                 });
