@@ -221,13 +221,20 @@
 
 	public void guardar()
 	{
-		if (verdurasBLL.Guardar(verdura))
+		if(verdura.Detalle.Count > 0)
 		{
-			nuevo();
+			if (verdurasBLL.Guardar(verdura))
+			{
+				nuevo();
+			}
+			else
+			{
+				ResponseMessage = "No se pudo guardar!";
+			}
 		}
 		else
 		{
-			ResponseMessage = "No se pudo guardar!";
+			ResponseMessage = "Necesita agregar vitaminas!";
 		}
 	}
 }
